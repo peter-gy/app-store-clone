@@ -1,0 +1,1 @@
+_N_E=(window.webpackJsonp_N_E=window.webpackJsonp_N_E||[]).push([[8],{Fz14:function(n,e,i){"use strict";i.r(e);var _=i("nKUr"),c=i("Yr2Z");e.default=function(){return Object(_.jsx)(c.a,{children:Object(_.jsx)("h1",{children:"App Index"})})}},eTis:function(n,e,i){(window.__NEXT_P=window.__NEXT_P||[]).push(["/app",function(){return i("Fz14")}])}},[["eTis",0,2,1,3]]]);

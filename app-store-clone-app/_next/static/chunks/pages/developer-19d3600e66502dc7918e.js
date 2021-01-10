@@ -1,0 +1,1 @@
+_N_E=(window.webpackJsonp_N_E=window.webpackJsonp_N_E||[]).push([[9],{ociI:function(n,e,r){(window.__NEXT_P=window.__NEXT_P||[]).push(["/developer",function(){return r("zrYg")}])},zrYg:function(n,e,r){"use strict";r.r(e);var o=r("nKUr"),c=r("Yr2Z");e.default=function(){return Object(o.jsx)(c.a,{children:Object(o.jsx)("h1",{children:"Developer Index"})})}}},[["ociI",0,2,1,3]]]);
