@@ -36,7 +36,7 @@ const SideLayout = ({ children }) => {
                             <Link href="/person/read">Read</Link>
                         </Menu.Item>
                         <Menu.Item key="5" icon={<EditOutlined />}>
-                            <Link href="/person/update">update</Link>
+                            <Link href="/person/update">Update</Link>
                         </Menu.Item>
                         <Menu.Item key="6" icon={<DeleteOutlined />}>
                             <Link href="/person/delete">Delete</Link>
@@ -53,7 +53,7 @@ const SideLayout = ({ children }) => {
                             <Link href="/developer/read">Read</Link>
                         </Menu.Item>
                         <Menu.Item key="10" icon={<EditOutlined />}>
-                            <Link href="/developer/update">update</Link>
+                            <Link href="/developer/update">Update</Link>
                         </Menu.Item>
                         <Menu.Item key="11" icon={<DeleteOutlined />}>
                             <Link href="/developer/delete">Delete</Link>
