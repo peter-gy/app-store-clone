@@ -1,1 +1,0 @@
-_N_E=(window.webpackJsonp_N_E=window.webpackJsonp_N_E||[]).push([[11],{"J//H":function(n,e,r){(window.__NEXT_P=window.__NEXT_P||[]).push(["/person",function(){return r("VqFU")}])},VqFU:function(n,e,r){"use strict";r.r(e);var o=r("nKUr"),_=r("Yr2Z");e.default=function(){return Object(o.jsx)(_.a,{children:Object(o.jsx)("h1",{children:"Person Index"})})}}},[["J//H",0,2,1,3]]]);
