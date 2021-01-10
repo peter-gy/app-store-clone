@@ -13,11 +13,11 @@ const getEndpoint = (entity, operation) => `${process.env.API_BASE_URL}/${entity
  */
 const selectById = (entity, id) => {
     const endpoint = getEndpoint(entity, 'read');
-    let url = new URL(endpoint), 
-        params = {id: id},
-        settings = {method: 'GET'};
-    Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+    let url = new URL(endpoint),
+        params = { id: id },
+        settings = { method: 'GET' };
+    Object.keys(params).forEach((key) => url.searchParams.append(key, params[key]));
     return fetch(url, settings);
-}
+};
 
 export { selectById };
