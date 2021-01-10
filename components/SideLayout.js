@@ -13,7 +13,7 @@ import {
     DeleteOutlined
 } from '@ant-design/icons';
 
-const { Header, Sider, Content } = Layout;
+const { Sider, Content, Footer } = Layout;
 const { SubMenu } = Menu;
 
 const SideLayout = ({ children }) => {
@@ -70,8 +70,10 @@ const SideLayout = ({ children }) => {
                 </Menu>
             </Sider>
             <Layout>
-                <Header style={{ padding: 0 }} />
-                <Content>{children}</Content>
+                <Content>
+                    <div className="container">{children}</div>
+                </Content>
+                <Footer style={{ textAlign: 'center' }}>Created By Péter Ferenc Gyarmati</Footer>
             </Layout>
         </Layout>
     );
