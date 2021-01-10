@@ -21,7 +21,7 @@ const SideLayout = ({ children }) => {
     return (
         <Layout>
             <Sider collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)}>
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+                <Menu theme="dark" mode="inline">
                     <Menu.Item key="1" icon={<HomeOutlined />}>
                         <Link href="/">Home</Link>
                     </Menu.Item>
@@ -61,10 +61,10 @@ const SideLayout = ({ children }) => {
                     </SubMenu>
                     <SubMenu key="sub3" icon={<AppleOutlined />} title="Apps">
                         <Menu.Item key="12" icon={<QuestionCircleOutlined />}>
-                            <Link href="/developer">Overview</Link>
+                            <Link href="/app">Overview</Link>
                         </Menu.Item>
                         <Menu.Item key="13" icon={<PlusCircleOutlined />}>
-                            <Link href="/developer/read">Read</Link>
+                            <Link href="/app/read">Read</Link>
                         </Menu.Item>
                     </SubMenu>
                 </Menu>

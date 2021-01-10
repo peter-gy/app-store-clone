@@ -1,11 +1,11 @@
 import SideLayout from '../../components/SideLayout';
 
-const PersonIndex = () => {
+const DeveloperIndex = () => {
     return (
         <SideLayout>
-            <h1>Person Index</h1>
+            <h1>Developer Index</h1>
         </SideLayout>
     );
 };
 
-export default PersonIndex;
+export default DeveloperIndex;
