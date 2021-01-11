@@ -24,7 +24,7 @@ const EntityOverview = ({
     columns,
     actions = ['read', 'update', 'delete'],
     initialFetchCount = 100,
-    inScrollViewCount = 10
+    scroll = { y: 500 }
 }) => {
     const { data, isLoading, hasError, errorMessage, refetch, updateUp } = useFetchEntityRange(
         entity,
@@ -32,16 +32,18 @@ const EntityOverview = ({
         initialFetchCount
     );
 
-    if (actions.length !== 0) {
+    if (actions.length !== 0 && !columns.some((c) => c.title === 'Actions')) {
         columns.push({
             title: 'Actions',
             key: 'actions',
+            width: 100,
+            align: 'center',
             render: (text, record) => (
                 <Space size="middle">
-                    {actions.map((action) => {
+                    {actions.map((action, idx) => {
                         const { title, icon } = actionConfig[action];
                         return (
-                            <Link href={`/${entity}/${action}`}>
+                            <Link key={idx} href={`/${entity}/${action}`}>
                                 <Tooltip title={title}>{icon}</Tooltip>
                             </Link>
                         );
@@ -67,7 +69,11 @@ const EntityOverview = ({
                     <p>Number of {entity}s to fetch</p>
                 </Col>
                 <Col span={8}>
-                    <InputNumber defaultValue={100} onChange={(value) => updateUp(value)} />
+                    <InputNumber
+                        min={1}
+                        defaultValue={initialFetchCount}
+                        onChange={(value) => updateUp(value)}
+                    />
                 </Col>
                 <Col span={8}>
                     <Button type="primary" onClick={refetch}>
@@ -81,7 +87,7 @@ const EntityOverview = ({
                 rowKey={(record) => record.id}
                 dataSource={data}
                 loading={isLoading}
-                scroll={{ y: 57.5 * inScrollViewCount }}
+                scroll={scroll}
                 bordered
                 title={() => `${capitalize(entity)}s`}
             />

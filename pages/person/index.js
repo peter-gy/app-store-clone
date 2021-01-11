@@ -4,7 +4,9 @@ import EntityOverview from '../../components/EntityOverview';
 const columns = [
     {
         title: 'ID',
-        dataIndex: 'id'
+        dataIndex: 'id',
+        width: 80,
+        align: 'center'
     },
     {
         title: 'Username',
