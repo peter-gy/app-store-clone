@@ -4,20 +4,20 @@ import { InputNumber } from 'antd';
 import { useDeleteEntity } from '../../../hooks/writeEntityHooks';
 import { useRouter } from 'next/router';
 
-const entity = 'person';
+const entity = 'developer';
 const operation = 'delete';
-const dividerTitle = `Delete a person`;
+const dividerTitle = `Delete a developer`;
 const entityHook = useDeleteEntity;
 const fields = [
     {
         label: 'ID',
         name: 'id',
-        rules: [{ required: true, message: 'Enter the ID of the user to be deleted!' }],
+        rules: [{ required: true, message: 'Enter the ID of the developer to be deleted!' }],
         inputComponent: <InputNumber min={1} />
     }
 ];
 
-const DeletePersonIndex = () => {
+const DeleteDeveloperIndex = () => {
     const router = useRouter();
     return (
         <SideLayout>
@@ -33,4 +33,4 @@ const DeletePersonIndex = () => {
     );
 };
 
-export default DeletePersonIndex;
+export default DeleteDeveloperIndex;

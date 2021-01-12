@@ -1,24 +1,24 @@
 import SideLayout from '../../../components/SideLayout';
 import { useFetchEntityById } from '../../../hooks/readEntityHooks';
 import { Divider, InputNumber, Skeleton, List, message } from 'antd';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-const ReadPersonIndex = () => {
+const ReadDeveloperIndex = () => {
     const router = useRouter();
-    const initialId = () => ('id' in router.query ? +router.query.id : 50);
+    const initialId = () => ('id' in router.query ? +router.query.id : 40404);
     const { data, isLoading, hasError, errorMessage, updateId } = useFetchEntityById(
-        'person',
+        'developer',
         initialId()
     );
     useEffect(() => {
         if (hasError && errorMessage.message)
-            message.error(errorMessage.message.replace('Entity', 'Person'));
+            message.error(errorMessage.message.replace('Entity', 'Developer'));
     }, [hasError, errorMessage]);
 
     return (
         <SideLayout>
-            <Divider orientation="left">Person Detail</Divider>
+            <Divider orientation="left">Developer Detail</Divider>
             <InputNumber
                 min={1}
                 defaultValue={initialId()}
@@ -31,7 +31,7 @@ const ReadPersonIndex = () => {
                     size="large"
                     header={<div>{data.username}</div>}
                     bordered
-                    dataSource={[data.password, data.region]}
+                    dataSource={[data.password, data.region, data.website_url, data.organization]}
                     renderItem={(item) => <List.Item>{item}</List.Item>}
                 />
             ) : (
@@ -41,4 +41,4 @@ const ReadPersonIndex = () => {
     );
 };
 
-export default ReadPersonIndex;
+export default ReadDeveloperIndex;
