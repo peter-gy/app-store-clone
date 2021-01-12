@@ -1,16 +1,16 @@
 import SideLayout from '../../../components/SideLayout';
 import { useFetchEntityById } from '../../../hooks/readEntityHooks';
 import { Divider, InputNumber, Skeleton, List, message } from 'antd';
-import { useEffect } from 'react';
-
-const initialId = 1;
+import { useEffect, useRef } from 'react';
+import { useRouter } from 'next/router';
 
 const ReadPersonIndex = () => {
+    const router = useRouter();
+    const initialId = () => ('id' in router.query ? +router.query.id : 50);
     const { data, isLoading, hasError, errorMessage, updateId } = useFetchEntityById(
         'person',
-        initialId
+        initialId()
     );
-
     useEffect(() => {
         if (hasError && errorMessage.message) message.error(errorMessage.message);
     }, [hasError, errorMessage]);
@@ -20,7 +20,7 @@ const ReadPersonIndex = () => {
             <Divider orientation="left">Person Detail</Divider>
             <InputNumber
                 min={1}
-                defaultValue={initialId}
+                defaultValue={initialId()}
                 onChange={(value) => updateId(value)}
                 style={{ marginBottom: 20 }}
             />

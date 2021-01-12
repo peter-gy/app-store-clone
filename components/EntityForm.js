@@ -18,7 +18,7 @@ const tailLayout = {
     }
 };
 
-const EntityForm = ({ entity, operation, entityHook, dividerTitle, fields }) => {
+const EntityForm = ({ entity, operation, entityHook, dividerTitle, fields, initialValues }) => {
     const { data, isLoading, hasError, errorMessage, setEntityData } = entityHook(entity, {});
     const [form] = Form.useForm();
     const formRef = useRef(null);
@@ -47,6 +47,7 @@ const EntityForm = ({ entity, operation, entityHook, dividerTitle, fields }) => 
                 ref={formRef}
                 form={form}
                 name={`${operation}-${entity}`}
+                initialValues={initialValues}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}>
                 {fields.map(({ label, name, rules, inputComponent }, idx) => (

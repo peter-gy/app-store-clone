@@ -43,7 +43,12 @@ const EntityOverview = ({
                     {actions.map((action, idx) => {
                         const { title, icon } = actionConfig[action];
                         return (
-                            <Link key={idx} href={`/${entity}/${action}`}>
+                            <Link
+                                key={idx}
+                                href={{
+                                    pathname: `/${entity}/${action}`,
+                                    query: record
+                                }}>
                                 <Tooltip title={title}>{icon}</Tooltip>
                             </Link>
                         );

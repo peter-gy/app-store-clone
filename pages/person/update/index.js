@@ -2,6 +2,7 @@ import SideLayout from '../../../components/SideLayout';
 import EntityForm from '../../../components/EntityForm';
 import { Input, InputNumber } from 'antd';
 import { useUpdateEntity } from '../../../hooks/writeEntityHooks';
+import { useRouter } from 'next/router';
 
 const entity = 'person';
 const operation = 'update';
@@ -35,10 +36,12 @@ const fields = [
 ];
 
 const UpdatePersonIndex = () => {
+    const router = useRouter();
     return (
         <SideLayout>
             <EntityForm
                 entity={entity}
+                initialValues={router.query}
                 operation={operation}
                 dividerTitle={dividerTitle}
                 entityHook={entityHook}
