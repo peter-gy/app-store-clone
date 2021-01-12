@@ -47,7 +47,7 @@ const EntityOverview = ({
                                 key={idx}
                                 href={{
                                     pathname: `/${entity}/${action}`,
-                                    query: record
+                                    query: action === 'update' ? record : { id: record.id }
                                 }}>
                                 <Tooltip title={title}>{icon}</Tooltip>
                             </Link>

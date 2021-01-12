@@ -19,6 +19,7 @@ const columns = [
                 src={text.replace('1024x1024', '128x128')}
                 width={56}
                 alt={`Logo of app ${record.app_name}`}
+                style={{ borderRadius: '10%' }}
             />
         )
     },
