@@ -21,7 +21,7 @@ const useCreateEntity = (entity, initialEntityData) =>
 
 const useUpdateEntity = (entity, initialEntityData) =>
     useWriteEntity('update', entity, initialEntityData);
-    
+
 const useDeleteEntity = (entity, initialEntityData) =>
     useWriteEntity('delete', entity, initialEntityData);
 
