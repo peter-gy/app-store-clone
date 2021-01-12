@@ -74,7 +74,7 @@ const ReadAppIndex = () => {
                         </Col>
                     </Row>
                     <Divider />
-                    <Collapse defaultActiveKey={['1']}>
+                    <Collapse>
                         <Panel header="Description" key="1">
                             <Paragraph>{data.app_description}</Paragraph>
                         </Panel>
