@@ -31,7 +31,9 @@ const columns = [
         dataIndex: 'app_price',
         width: 90,
         align: 'center',
-        render: (text, record) => <p>{text === '0' ? 'Free' : `€ ${text}`}</p>
+        render: (text, record) => (
+            <p>{text === '0' ? 'Free' : `€ ${text.charAt(0) === '.' ? `0${text}` : text}`}</p>
+        )
     },
     {
         title: 'Category',

@@ -55,6 +55,7 @@ const EntityOverview = ({
 
     useEffect(() => {
         if (hasError) {
+            console.log(errorMessage);
             message.error(errorMessage.message);
         }
     }, [hasError]);

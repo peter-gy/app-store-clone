@@ -1,14 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 /**
  * Source: https://medium.com/swlh/usefetch-a-custom-react-hook-36d5f5819d8
  * @param {string} initialUrl - the initial url to be fetched
  * @param {object} initialParams - initial url query parameters
- * @param {boolean} skip - set to true if the fetch should occur after the `didMount` stage
+ * @param {boolean} initialSkip - set to true if the fist fetch should in the `didMount` stage should be skipped
  */
-const useFetch = (initialUrl, initialParams = {}, skip = false) => {
+const useFetch = (initialUrl, initialParams = {}, initialOptions = {}, skip = false) => {
     const [url, updateUrl] = useState(initialUrl);
     const [params, updateParams] = useState(initialParams);
+    const [options, updateOptions] = useState(initialOptions);
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [hasError, setHasError] = useState(false);
@@ -23,10 +24,9 @@ const useFetch = (initialUrl, initialParams = {}, skip = false) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            if (skip) return;
             setIsLoading(true);
             try {
-                const response = await fetch(`${url}?${queryString}`);
+                const response = await fetch(`${url}?${queryString}`, options);
                 const result = await response.json();
                 if (response.ok) {
                     setData(result);
@@ -43,9 +43,18 @@ const useFetch = (initialUrl, initialParams = {}, skip = false) => {
             }
         };
         fetchData();
-    }, [url, params, refetchIndex]);
+    }, [url, params, options, refetchIndex]);
 
-    return { data, isLoading, hasError, errorMessage, updateUrl, updateParams, refetch };
+    return {
+        data,
+        isLoading,
+        hasError,
+        errorMessage,
+        updateUrl,
+        updateParams,
+        updateOptions,
+        refetch
+    };
 };
 
 export default useFetch;
