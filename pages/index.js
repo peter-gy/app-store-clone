@@ -28,7 +28,9 @@ const Home = () => {
     return (
         <SideLayout>
             <Title>Database Systems University Project</Title>
-            <Title level={4} type="secondary">Winter Semester of 2020</Title>
+            <Title level={4} type="secondary">
+                Winter Semester of 2020
+            </Title>
             <Row gutter={16} type="flex" justify="space-around" align="top">
                 <Col span={{ xs: 24, sm: 24, md: 12, lg: 8 }}>
                     <Card

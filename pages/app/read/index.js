@@ -10,13 +10,22 @@ import {
     Space,
     Image,
     Typography,
-    Collapse
+    Collapse,
+    Descriptions
 } from 'antd';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 const { Title, Paragraph, Text, Link } = Typography;
 const { Panel } = Collapse;
+
+const getLanguages = (data) => data.languages.map(({ language_name }) => language_name);
+const getPlatforms = (data) =>
+    data.platforms.map(({ platform_name }) => platform_name.replaceAll('_', ' '));
+const getAppSize = ({ app_size_in_bytes }) =>
+    `${(app_size_in_bytes / (1024 * 1024)).toFixed(1)} MB`;
+const getScreenshotUrls = (data, res = '621x1344') =>
+    data.screenshot_urls.map(({ screenshot_url }) => screenshot_url.replace('1242x2688', res));
 
 const ReadAppIndex = () => {
     const router = useRouter();
@@ -42,7 +51,7 @@ const ReadAppIndex = () => {
             <Divider />
             {isLoading ? <Skeleton /> : ''}
             {data && !isLoading ? (
-                <Space direction="vertical">
+                <Space direction="vertical" style={{ padding: 10 }}>
                     <Row gutter={64}>
                         <Col>
                             <Image
@@ -74,11 +83,37 @@ const ReadAppIndex = () => {
                         </Col>
                     </Row>
                     <Divider />
+
+                    <Row gutter={16} type="flex" justify="center" align="top">
+                        {getScreenshotUrls(data).map((url, idx) => (
+                            <Col key={idx} span={{ xs: 24, sm: 24, md: 12, lg: 8 }}>
+                                <Image
+                                    src={url}
+                                    height={500}
+                                    placeholder={
+                                        <Image preview={false} src="/fallback.png" height={500} />
+                                    }
+                                />
+                            </Col>
+                        ))}
+                    </Row>
+                    <Divider />
                     <Collapse>
                         <Panel header="Description" key="1">
                             <Paragraph>{data.app_description}</Paragraph>
                         </Panel>
                     </Collapse>
+
+                    <Divider />
+                    <Descriptions bordered title="Details" layout="vertical">
+                        <Descriptions.Item label="Languages">
+                            {getLanguages(data).join(', ')}
+                        </Descriptions.Item>
+                        <Descriptions.Item label="Platforms">
+                            {getPlatforms(data).join(', ')}
+                        </Descriptions.Item>
+                        <Descriptions.Item label="App Size">{getAppSize(data)}</Descriptions.Item>
+                    </Descriptions>
                 </Space>
             ) : (
                 ''
