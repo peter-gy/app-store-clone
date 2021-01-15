@@ -1,6 +1,32 @@
 import { useEffect, useRef } from 'react';
 import { Divider, Form, Button, Spin, message } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
+import Lottie from 'react-lottie';
+import createLottieData from '../lotties/create-icon.json';
+import readLottieData from '../lotties/read-icon.json';
+import updateLottieData from '../lotties/edit-icon.json';
+import deleteLottieData from '../lotties/delete-icon.json';
+
+const lottieOptions = {
+    loop: true,
+    autoplay: true,
+    rendererSettings: {
+        preserveAspectRatio: 'xMidYMid slice'
+    }
+};
+
+const getLottieData = (operation) => {
+    switch (operation) {
+        case 'create':
+            return createLottieData;
+        case 'read':
+            return readLottieData;
+        case 'update':
+            return updateLottieData;
+        case 'delete':
+            return deleteLottieData;
+    }
+};
 
 const layout = {
     labelCol: {
@@ -40,6 +66,11 @@ const EntityForm = ({ entity, operation, entityHook, dividerTitle, fields, initi
 
     return (
         <>
+            <Lottie
+                options={{ ...lottieOptions, animationData: getLottieData(operation) }}
+                width={150}
+                height={150}
+            />
             <Divider orientation="left">{dividerTitle}</Divider>
             {isLoading ? <Spin /> : ''}
             <Form

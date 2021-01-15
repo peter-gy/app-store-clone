@@ -1,13 +1,20 @@
 import React from 'react';
 import SideLayout from '../components/SideLayout';
 import Link from 'next/link';
-import { Row, Col, Card, Avatar } from 'antd';
+import { Row, Col, Card, Typography } from 'antd';
 import Lottie from 'react-lottie';
 import userLottieData from '../lotties/user-open-icon.json';
 import developerLottieData from '../lotties/developer-icon.json';
 import appLottieData from '../lotties/apple-store-icon.json';
-import { QuestionCircleOutlined, PlusCircleOutlined, EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import {
+    QuestionCircleOutlined,
+    PlusCircleOutlined,
+    EyeOutlined,
+    EditOutlined,
+    DeleteOutlined
+} from '@ant-design/icons';
 const { Meta } = Card;
+const { Title } = Typography;
 
 const lottieOptions = {
     loop: false,
@@ -20,24 +27,26 @@ const lottieOptions = {
 const Home = () => {
     return (
         <SideLayout>
+            <Title>Database Systems University Project</Title>
+            <Title level={4} type="secondary">Winter Semester of 2020</Title>
             <Row gutter={16} type="flex" justify="space-around" align="top">
                 <Col span={{ xs: 24, sm: 24, md: 12, lg: 8 }}>
                     <Card
                         style={{ width: 200, marginTop: 10 }}
                         actions={[
-                            <Link href='/person'>
+                            <Link href="/person">
                                 <QuestionCircleOutlined key="overview-person" />
                             </Link>,
-                            <Link href='/person/create'>
+                            <Link href="/person/create">
                                 <PlusCircleOutlined key="create-person" />
                             </Link>,
-                            <Link href='/person/read'>
+                            <Link href="/person/read">
                                 <EyeOutlined key="read-person" />
                             </Link>,
-                            <Link href='/person/update'>
+                            <Link href="/person/update">
                                 <EditOutlined key="update-person" />
                             </Link>,
-                            <Link href='/person/delete'>
+                            <Link href="/person/delete">
                                 <DeleteOutlined key="delete-person" />
                             </Link>
                         ]}>
@@ -55,19 +64,19 @@ const Home = () => {
                     <Card
                         style={{ width: 200, marginTop: 10 }}
                         actions={[
-                            <Link href='/developer'>
+                            <Link href="/developer">
                                 <QuestionCircleOutlined key="overview-developer" />
                             </Link>,
-                            <Link href='/developer/create'>
+                            <Link href="/developer/create">
                                 <PlusCircleOutlined key="create-developer" />
                             </Link>,
-                            <Link href='/developer/read'>
+                            <Link href="/developer/read">
                                 <EyeOutlined key="read-developer" />
                             </Link>,
-                            <Link href='/developer/update'>
+                            <Link href="/developer/update">
                                 <EditOutlined key="update-developer" />
                             </Link>,
-                            <Link href='/developer/delete'>
+                            <Link href="/developer/delete">
                                 <DeleteOutlined key="delete-developer" />
                             </Link>
                         ]}>
@@ -78,19 +87,22 @@ const Home = () => {
                                 height={150}
                             />
                         </div>
-                        <Meta title="Developers" description="Perform CRUD operations on developers!" />
+                        <Meta
+                            title="Developers"
+                            description="Perform CRUD operations on developers!"
+                        />
                     </Card>
                 </Col>
                 <Col span={{ xs: 24, sm: 24, md: 12, lg: 8 }}>
                     <Card
-                        style={{ width: 200, marginTop: 10 }}
+                        style={{ width: 200, marginTop: 10, marginBottom: 10 }}
                         actions={[
-                            <Link href='/app'>
+                            <Link href="/app">
                                 <QuestionCircleOutlined key="overview-app" />
                             </Link>,
-                            <Link href='/app/read'>
+                            <Link href="/app/read">
                                 <EyeOutlined key="read-app" />
-                            </Link>,
+                            </Link>
                         ]}>
                         <div style={{ display: 'flex', alignItems: 'center', width: 150 }}>
                             <Lottie
