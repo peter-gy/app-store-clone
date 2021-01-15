@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Head from 'next/head';
 import { useState } from 'react';
 import { Layout, Menu } from 'antd';
 import {
@@ -20,6 +21,10 @@ const SideLayout = ({ children }) => {
     const [collapsed, setCollapsed] = useState(false);
     return (
         <Layout>
+            <Head>
+                <title>App Store Clone</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <Sider collapsible collapsed={collapsed} onCollapse={() => setCollapsed(!collapsed)}>
                 <Menu theme="dark" mode="inline">
                     <Menu.Item key="1" icon={<HomeOutlined />}>
