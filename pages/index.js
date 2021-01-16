@@ -3,6 +3,7 @@ import SideLayout from '../components/SideLayout';
 import Link from 'next/link';
 import { Row, Col, Card, Typography } from 'antd';
 import Lottie from 'react-lottie';
+import dbLottieData from '../lotties/db-icon.json';
 import userLottieData from '../lotties/user-open-icon.json';
 import developerLottieData from '../lotties/developer-icon.json';
 import appLottieData from '../lotties/apple-store-icon.json';
@@ -27,11 +28,16 @@ const lottieOptions = {
 const Home = () => {
     return (
         <SideLayout>
+            <Lottie
+                options={{ ...lottieOptions, loop: true, animationData: dbLottieData }}
+                width={200}
+                height={200}
+            />
             <Title>Database Systems University Project</Title>
             <Title level={4} type="secondary">
                 Winter Semester of 2020
             </Title>
-            <Row gutter={16} type="flex" justify="space-around" align="top">
+            <Row gutter={16} type="flex" justify="space-between" align="bottom">
                 <Col span={{ xs: 24, sm: 24, md: 12, lg: 8 }}>
                     <Card
                         style={{ width: 200, marginTop: 10 }}

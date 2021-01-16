@@ -133,8 +133,12 @@ const ReadAppIndex = () => {
 
                     <Row gutter={16} type="flex" justify="center" align="top">
                         {getScreenshotUrls(data).map((url, idx) => (
-                            <Col key={idx} span={{ xs: 24, sm: 24, md: 12, lg: 8 }}>
+                            <Col
+                                key={idx}
+                                span={{ xs: 24, sm: 24, md: 12, lg: 8 }}
+                                style={{ margin: 5 }}>
                                 <Image
+                                    style={{ borderRadius: '3%' }}
                                     src={url}
                                     height={500}
                                     placeholder={
@@ -145,7 +149,7 @@ const ReadAppIndex = () => {
                         ))}
                     </Row>
                     <Divider />
-                    <Collapse>
+                    <Collapse defaultActiveKey={['1']}>
                         <Panel header="Description" key="1">
                             <Paragraph>{data.app_description}</Paragraph>
                         </Panel>
@@ -153,8 +157,8 @@ const ReadAppIndex = () => {
 
                     <Divider />
 
-                    <Collapse>
-                        <Panel header="Reviews" key="2">
+                    <Collapse defaultActiveKey={['1']}>
+                        <Panel header="Reviews" key="1">
                             {data.reviews.map((review) => (
                                 <Review key={review.rating_id} review={review}></Review>
                             ))}
