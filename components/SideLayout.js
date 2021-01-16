@@ -18,7 +18,7 @@ const { Sider, Content, Footer } = Layout;
 const { SubMenu } = Menu;
 
 const SideLayout = ({ children }) => {
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
     return (
         <Layout>
             <Head>

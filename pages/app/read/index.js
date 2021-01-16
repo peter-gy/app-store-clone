@@ -19,7 +19,6 @@ import {
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import NextLink from 'next/link';
-import moment from 'moment';
 
 const { Title, Paragraph, Text, Link } = Typography;
 const { Panel } = Collapse;
@@ -39,9 +38,18 @@ const getRatingColorType = (value) => {
 const getAvgRating = (data) => data.rating_stats[0].average_rating.substring(0, 3);
 
 const Review = (props) => {
-    const { value, title, text_body, person_id, username } = props.review;
+    const {
+        value,
+        title,
+        text_body,
+        person_id,
+        username,
+        developer_id,
+        dev_response_text_body
+    } = props.review;
     return (
         <Comment
+            style={{borderBottom: '1px solid #dcdcdc'}}
             author={
                 <NextLink
                     href={{
@@ -65,7 +73,32 @@ const Review = (props) => {
                     <Text type={getRatingColorType(value)}>{`${value}/5`}</Text>
                     <Paragraph>{text_body}</Paragraph>
                 </div>
-            }></Comment>
+            }>
+            {dev_response_text_body ? (
+                <Comment
+                    author={
+                        <NextLink
+                            href={{
+                                pathname: `/developer/read`,
+                                query: { id: developer_id }
+                            }}>
+                            {props.org}
+                        </NextLink>
+                    }
+                    avatar={
+                        <Tooltip title={`Developer #${developer_id}`}>
+                            <Avatar
+                                src={`https://eu.ui-avatars.com/api/?background=f6d55c&color=000&name=${props.org}`}
+                                alt={props.org}
+                            />
+                        </Tooltip>
+                    }
+                    content={<p>{dev_response_text_body}</p>}
+                />
+            ) : (
+                ''
+            )}
+        </Comment>
     );
 };
 
@@ -160,7 +193,10 @@ const ReadAppIndex = () => {
                     <Collapse defaultActiveKey={['1']}>
                         <Panel header="Reviews" key="1">
                             {data.reviews.map((review) => (
-                                <Review key={review.rating_id} review={review}></Review>
+                                <Review
+                                    key={review.rating_id}
+                                    review={review}
+                                    org={data.developer_org}></Review>
                             ))}
                         </Panel>
                     </Collapse>
