@@ -147,11 +147,15 @@ const ReadAppIndex = () => {
                                 <Link href={data.developer_website_url} target="_blank">
                                     <Text code>{data.developer_org}</Text>
                                 </Link>
-                                <Title
-                                    level={5}
-                                    type={getRatingColorType(getAvgRating(data))}>{`${getAvgRating(
-                                    data
-                                )} / 5`}</Title>
+                                {data.rating_stats[0].average_rating ? (
+                                    <Title
+                                        level={5}
+                                        type={getRatingColorType(
+                                            getAvgRating(data)
+                                        )}>{`${getAvgRating(data)} / 5`}</Title>
+                                ) : (
+                                    ''
+                                )}
                                 <Title level={4} strong>
                                     {data.app_price == 0
                                         ? 'Free'
