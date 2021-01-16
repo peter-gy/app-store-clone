@@ -11,10 +11,15 @@ import {
     Image,
     Typography,
     Collapse,
-    Descriptions
+    Descriptions,
+    Comment,
+    Tooltip,
+    Avatar
 } from 'antd';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import NextLink from 'next/link';
+import moment from 'moment';
 
 const { Title, Paragraph, Text, Link } = Typography;
 const { Panel } = Collapse;
@@ -26,6 +31,43 @@ const getAppSize = ({ app_size_in_bytes }) =>
     `${(app_size_in_bytes / (1024 * 1024)).toFixed(1)} MB`;
 const getScreenshotUrls = (data, res = '621x1344') =>
     data.screenshot_urls.map(({ screenshot_url }) => screenshot_url.replace('1242x2688', res));
+const getRatingColorType = (value) => {
+    if (value >= 4 && value <= 5) return 'success';
+    else if (value >= 2.5 && value < 4) return 'warning';
+    return 'danger';
+};
+const getAvgRating = (data) => data.rating_stats[0].average_rating.substring(0, 3)
+
+const Review = (props) => {
+    const { value, title, text_body, person_id, username } = props.review;
+    return (
+        <Comment
+            author={
+                <NextLink
+                    href={{
+                        pathname: `/person/read`,
+                        query: { id: person_id }
+                    }}>
+                    {username}
+                </NextLink>
+            }
+            avatar={
+                <Tooltip title={`Person #${person_id}`}>
+                    <Avatar
+                        src={`https://eu.ui-avatars.com/api/?background=074075&color=fff&name=${username}`}
+                        alt={username}
+                    />
+                </Tooltip>
+            }
+            content={
+                <div>
+                    <h1>{title}</h1>
+                    <Text type={getRatingColorType(value)}>{`${value}/5`}</Text>
+                    <Paragraph>{text_body}</Paragraph>
+                </div>
+            }></Comment>
+    );
+};
 
 const ReadAppIndex = () => {
     const router = useRouter();
@@ -52,7 +94,7 @@ const ReadAppIndex = () => {
             {isLoading ? <Skeleton /> : ''}
             {data && !isLoading ? (
                 <Space direction="vertical" style={{ padding: 10 }}>
-                    <Row gutter={64}>
+                    <Row gutter={64} align='middle' justify='center'>
                         <Col>
                             <Image
                                 src={data.app_logo_url.replace('1024x1024', '128x128')}
@@ -72,6 +114,7 @@ const ReadAppIndex = () => {
                                 <Link href={data.developer_website_url} target="_blank">
                                     <Text code>{data.developer_org}</Text>
                                 </Link>
+                                <Title level={5} type={getRatingColorType(getAvgRating(data))}>{`${getAvgRating(data)} / 5`}</Title>
                                 <Title level={4} strong>
                                     {data.app_price == 0
                                         ? 'Free'
@@ -101,6 +144,16 @@ const ReadAppIndex = () => {
                     <Collapse>
                         <Panel header="Description" key="1">
                             <Paragraph>{data.app_description}</Paragraph>
+                        </Panel>
+                    </Collapse>
+
+                    <Divider />
+
+                    <Collapse>
+                        <Panel header="Reviews" key="2">
+                            {data.reviews.map((review) => (
+                                <Review key={review.rating_id} review={review}></Review>
+                            ))}
                         </Panel>
                     </Collapse>
 
