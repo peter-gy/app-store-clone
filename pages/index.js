@@ -33,14 +33,18 @@ const Home = () => {
                 width={200}
                 height={200}
             />
-            <div style={{textAlign: 'center'}}>
-            <Title>Database Systems University Project</Title>
-            <Title level={4} type="secondary">
-                Winter Semester of 2020
-            </Title>
-
+            <div style={{ textAlign: 'center' }}>
+                <Title>Database Systems University Project</Title>
+                <Title level={4} type="secondary">
+                    Winter Semester of 2020
+                </Title>
             </div>
-            <Row gutter={16} type="flex" justify="center" align="bottom" style={{marginBottom: 10}}>
+            <Row
+                gutter={16}
+                type="flex"
+                justify="center"
+                align="bottom"
+                style={{ marginBottom: 10 }}>
                 <Col span={{ xs: 24, sm: 24, md: 12, lg: 8 }}>
                     <Card
                         style={{ width: 200, marginTop: 10 }}

@@ -49,7 +49,7 @@ const Review = (props) => {
     } = props.review;
     return (
         <Comment
-            style={{borderBottom: '1px solid #dcdcdc'}}
+            style={{ borderBottom: '1px solid #dcdcdc' }}
             author={
                 <NextLink
                     href={{
