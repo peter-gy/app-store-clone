@@ -1,6 +1,6 @@
 import SideLayout from '../../../components/SideLayout';
 import { useFetchEntityById } from '../../../hooks/readEntityHooks';
-import { Divider, InputNumber, Skeleton, List, message } from 'antd';
+import { Divider, InputNumber, Skeleton, Descriptions, message } from 'antd';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
@@ -27,13 +27,17 @@ const ReadDeveloperIndex = () => {
             />
             {isLoading ? <Skeleton /> : ''}
             {data && !isLoading ? (
-                <List
-                    size="large"
-                    header={<div>{data.username}</div>}
-                    bordered
-                    dataSource={[data.password, data.region, data.website_url, data.organization]}
-                    renderItem={(item) => <List.Item>{item}</List.Item>}
-                />
+                <Descriptions bordered title="Details" layout="vertical">
+                    <Descriptions.Item label="Username">{data.username}</Descriptions.Item>
+                    <Descriptions.Item label="Password">{data.password}</Descriptions.Item>
+                    <Descriptions.Item label="Region">{data.region}</Descriptions.Item>
+                    <Descriptions.Item label="Website Url">
+                        <a href={data.website_url} target="_blank">
+                            URL
+                        </a>
+                    </Descriptions.Item>
+                    <Descriptions.Item label="Organization">{data.organization}</Descriptions.Item>
+                </Descriptions>
             ) : (
                 ''
             )}

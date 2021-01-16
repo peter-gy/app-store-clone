@@ -36,7 +36,7 @@ const getRatingColorType = (value) => {
     else if (value >= 2.5 && value < 4) return 'warning';
     return 'danger';
 };
-const getAvgRating = (data) => data.rating_stats[0].average_rating.substring(0, 3)
+const getAvgRating = (data) => data.rating_stats[0].average_rating.substring(0, 3);
 
 const Review = (props) => {
     const { value, title, text_body, person_id, username } = props.review;
@@ -94,7 +94,7 @@ const ReadAppIndex = () => {
             {isLoading ? <Skeleton /> : ''}
             {data && !isLoading ? (
                 <Space direction="vertical" style={{ padding: 10 }}>
-                    <Row gutter={64} align='middle' justify='center'>
+                    <Row gutter={64} align="middle" justify="center">
                         <Col>
                             <Image
                                 src={data.app_logo_url.replace('1024x1024', '128x128')}
@@ -114,7 +114,11 @@ const ReadAppIndex = () => {
                                 <Link href={data.developer_website_url} target="_blank">
                                     <Text code>{data.developer_org}</Text>
                                 </Link>
-                                <Title level={5} type={getRatingColorType(getAvgRating(data))}>{`${getAvgRating(data)} / 5`}</Title>
+                                <Title
+                                    level={5}
+                                    type={getRatingColorType(getAvgRating(data))}>{`${getAvgRating(
+                                    data
+                                )} / 5`}</Title>
                                 <Title level={4} strong>
                                     {data.app_price == 0
                                         ? 'Free'
