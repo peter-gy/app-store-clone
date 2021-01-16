@@ -28,8 +28,18 @@ const getPlatforms = (data) =>
     data.platforms.map(({ platform_name }) => platform_name.replaceAll('_', ' '));
 const getAppSize = ({ app_size_in_bytes }) =>
     `${(app_size_in_bytes / (1024 * 1024)).toFixed(1)} MB`;
-const getScreenshotUrls = (data, res = '621x1344') =>
-    data.screenshot_urls.map(({ screenshot_url }) => screenshot_url.replace('1242x2688', res));
+
+/* Disgusting stuff down here (sleep deprivation is my only excuse) */
+const defaultVertRes = '621x1344';
+const defaultHorRes = '1344x621';
+const getScreenshotUrls = (data) =>
+    data.screenshot_urls.map(({ screenshot_url: s }) =>
+        s.includes('1242x2688')
+            ? s.replace('1242x2688', defaultVertRes)
+            : s.replace('2688x1242', defaultHorRes)
+    );
+const getImageDim = (url) =>
+    url.includes(defaultVertRes) ? { w: 621, h: 1344 } : { w: 1344, h: 621 };
 const getRatingColorType = (value) => {
     if (value >= 4 && value <= 5) return 'success';
     else if (value >= 2.5 && value < 4) return 'warning';
@@ -169,21 +179,33 @@ const ReadAppIndex = () => {
                     <Divider />
 
                     <Row gutter={16} type="flex" justify="center" align="top">
-                        {getScreenshotUrls(data).map((url, idx) => (
-                            <Col
-                                key={idx}
-                                span={{ xs: 24, sm: 24, md: 12, lg: 8 }}
-                                style={{ margin: 5 }}>
-                                <Image
-                                    style={{ borderRadius: '3%' }}
-                                    src={url}
-                                    height={500}
-                                    placeholder={
-                                        <Image preview={false} src="/fallback.png" height={500} />
-                                    }
-                                />
-                            </Col>
-                        ))}
+                        {getScreenshotUrls(data).map((url, idx) => {
+                            let { w, h } = getImageDim(url);
+                            const factor = 0.25;
+                            w *= factor;
+                            h *= factor;
+                            return (
+                                <Col
+                                    key={idx}
+                                    span={{ xs: 12, sm: 12, md: 12, lg: 12 }}
+                                    style={{ margin: 5, maxWidth: w, maxHeight: h }}>
+                                    <Image
+                                        style={{ borderRadius: '3%' }}
+                                        src={url}
+                                        width={w}
+                                        height={h}
+                                        placeholder={
+                                            <Image
+                                                preview={false}
+                                                src="/fallback.png"
+                                                width={w}
+                                                height={h}
+                                            />
+                                        }
+                                    />
+                                </Col>
+                            );
+                        })}
                     </Row>
                     <Divider />
                     <Collapse defaultActiveKey={['1']}>
@@ -192,18 +214,24 @@ const ReadAppIndex = () => {
                         </Panel>
                     </Collapse>
 
-                    <Divider />
+                    {data.reviews.length ? (
+                        <div>
+                            <Divider />
 
-                    <Collapse defaultActiveKey={['1']}>
-                        <Panel header="Reviews" key="1">
-                            {data.reviews.map((review) => (
-                                <Review
-                                    key={review.rating_id}
-                                    review={review}
-                                    org={data.developer_org}></Review>
-                            ))}
-                        </Panel>
-                    </Collapse>
+                            <Collapse defaultActiveKey={['1']}>
+                                <Panel header="Reviews" key="1">
+                                    {data.reviews.map((review) => (
+                                        <Review
+                                            key={review.rating_id}
+                                            review={review}
+                                            org={data.developer_org}></Review>
+                                    ))}
+                                </Panel>
+                            </Collapse>
+                        </div>
+                    ) : (
+                        ''
+                    )}
 
                     <Divider />
                     <Descriptions bordered title="Details" layout="vertical">
