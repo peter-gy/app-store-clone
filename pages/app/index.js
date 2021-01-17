@@ -51,7 +51,7 @@ const AppIndex = () => {
                 entity="app"
                 columns={columns}
                 actions={['read']}
-                initialFetchCount={20}
+                initialFetchCount={10}
             />
         </SideLayout>
     );

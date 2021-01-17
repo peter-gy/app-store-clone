@@ -29,17 +29,22 @@ const getPlatforms = (data) =>
 const getAppSize = ({ app_size_in_bytes }) =>
     `${(app_size_in_bytes / (1024 * 1024)).toFixed(1)} MB`;
 
-/* Disgusting stuff down here (sleep deprivation is my only excuse) */
-const defaultVertRes = '621x1344';
-const defaultHorRes = '1344x621';
-const getScreenshotUrls = (data) =>
-    data.screenshot_urls.map(({ screenshot_url: s }) =>
-        s.includes('1242x2688')
-            ? s.replace('1242x2688', defaultVertRes)
-            : s.replace('2688x1242', defaultHorRes)
-    );
-const getImageDim = (url) =>
-    url.includes(defaultVertRes) ? { w: 621, h: 1344 } : { w: 1344, h: 621 };
+const getImageDim = (url) => {
+    const re = /\/([0-9\.]+)x([0-9\.]+)\./g;
+    const m = re.exec(url);
+    console.log(url);
+    return { w: +m[1], h: +m[2] };
+};
+const getScreenshotUrls = (data) => {
+    data.screenshot_urls.sort(({ screenshot_url: url1 }, { screenshot_url: url2 }) => {
+        const re = /[0-9]/g;
+        const n1 = re.exec(url1)[0];
+        const n2 = re.exec(url2)[0];
+        return n1 < n2;
+    });
+    return data.screenshot_urls.map(({ screenshot_url: url }) => url);
+};
+
 const getRatingColorType = (value) => {
     if (value >= 4 && value <= 5) return 'success';
     else if (value >= 2.5 && value < 4) return 'warning';
@@ -181,16 +186,14 @@ const ReadAppIndex = () => {
                     <Row gutter={16} type="flex" justify="center" align="top">
                         {getScreenshotUrls(data).map((url, idx) => {
                             let { w, h } = getImageDim(url);
-                            const factor = 0.25;
-                            w *= factor;
-                            h *= factor;
+                            const factor = 0.2;
+                            (w *= factor), (h *= factor);
                             return (
                                 <Col
                                     key={idx}
                                     span={{ xs: 12, sm: 12, md: 12, lg: 12 }}
                                     style={{ margin: 5, maxWidth: w, maxHeight: h }}>
                                     <Image
-                                        style={{ borderRadius: '3%' }}
                                         src={url}
                                         width={w}
                                         height={h}
