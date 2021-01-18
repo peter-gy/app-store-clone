@@ -57,8 +57,9 @@ const EntityForm = ({ entity, operation, entityHook, dividerTitle, fields, initi
     }, [data]);
 
     useEffect(() => {
-        if (afterFirstSubmit.current && hasError && errorMessage) message.error(errorMessage.message)
-    }, [hasError, errorMessage])
+        if (afterFirstSubmit.current && hasError && errorMessage)
+            message.error(errorMessage.message);
+    }, [hasError, errorMessage]);
 
     const onFinish = (values) => {
         if (!afterFirstSubmit.current) afterFirstSubmit.current = true;

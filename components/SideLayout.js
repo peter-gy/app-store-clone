@@ -11,7 +11,8 @@ import {
     PlusCircleOutlined,
     EyeOutlined,
     EditOutlined,
-    DeleteOutlined
+    DeleteOutlined,
+    ReloadOutlined
 } from '@ant-design/icons';
 
 const { Sider, Content, Footer } = Layout;
@@ -72,6 +73,13 @@ const SideLayout = ({ children }) => {
                             <Link href="/app/read">Read</Link>
                         </Menu.Item>
                     </SubMenu>
+                    <Menu.Item key="2" icon={<ReloadOutlined />}>
+                        <a
+                            href="http://wwwlab.cs.univie.ac.at/~gyarmatip41/app-store-clone/api/resetdb.php"
+                            target="blank">
+                            Reset Database
+                        </a>
+                    </Menu.Item>
                 </Menu>
             </Sider>
             <Layout>
